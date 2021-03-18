@@ -18,7 +18,7 @@ const isLoggedIn = (req, res, next) => {
 router.get("/", isLoggedIn, async (req, res, next) => {
   try {
     const users = await User.findAll({
-      attributes: ["id", "email", "token"],
+      attributes: ["id", "email", "token", "name"],
     });
     res.json(users);
   } catch (err) {
@@ -41,6 +41,20 @@ router.get("/:userId", async (req, res, next) => {
 
 //PUT --> /API/USERS/:USERID
 router.put("/:userId", async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        id: req.params.userId,
+      },
+    });
+    const updatedUser = await user.update(req.body);
+    res.json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+//PUT IMG --? IMG/API/USERS/:USERID/IMG
+router.put("file-upload/:userId", async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: {

@@ -17,7 +17,7 @@ import { useHistory } from "react-router-dom";
 
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
-import logo from ".././logo.png";
+import logo from ".././imgs/logo.png";
 import "../style/style.css";
 class Login extends React.Component {
   constructor() {
@@ -44,6 +44,7 @@ class Login extends React.Component {
       if (this.state.email.length && this.state.password.length) {
         await this.props.auth1(this.state.email, this.state.password);
         await this.props.me();
+        this.props.history.push("/profile");
       }
     } catch (error) {
       console.log(error);
@@ -164,7 +165,7 @@ class Login extends React.Component {
             </Button>
           </Form>
           <FacebookLogin
-            appId="480009723012050" //APP ID NOT CREATED YET
+            appId="480009723012050"
             fields="name,email,picture"
             callback={responseFacebook}
             cssClass="btnFacebook"
@@ -173,7 +174,8 @@ class Login extends React.Component {
           />
           {/* <Icon name="google plus" /> Google */}
           <GoogleLogin
-            clientId="545150694380-spcotq9ehq63horosg1ohsbbo0kqulih.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+            clientId="545150694380-spcotq9ehq63horosg1ohsbbo0kqulih.apps.googleusercontent.com"
+            // Button not working on IOS simulator?!
             buttonText="Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}

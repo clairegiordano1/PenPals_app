@@ -10,7 +10,7 @@ import {
   Image,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import logo from ".././logo.png";
+import logo from ".././imgs/logo.png";
 
 class Home extends React.Component {
   constructor() {

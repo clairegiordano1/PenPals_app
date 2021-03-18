@@ -27,14 +27,14 @@ const User = db.define("user", {
     //   notEmpty: true,
     // },
   },
-  state: {
+  fromCity: {
     type: Sequelize.STRING,
     // allowNull: false,
     // validate: {
     //   notEmpty: true,
     // },
   },
-  zipCode: {
+  toCity: {
     type: Sequelize.STRING,
     // allowNull: false,
     // validate: {
@@ -45,9 +45,9 @@ const User = db.define("user", {
     type: Sequelize.STRING,
   },
   imgUrl: {
-    type: Sequelize.TEXT,
-    defaultValue:
-      "https://icons-for-free.com/iconfiles/png/512/avatar+human+male+man+men+people+person+profile+user+users-1320196163635839021.png",
+    type: Sequelize.STRING,
+    // defaultValue:
+    //   "https://icons-for-free.com/iconfiles/png/512/avatar+human+male+man+men+people+person+profile+user+users-1320196163635839021.png",
   },
   description: {
     type: Sequelize.TEXT,

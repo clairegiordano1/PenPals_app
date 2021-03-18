@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/style/Login.css"],"names":[],"mappings":"AAAA,MACE,qBAAsB,CACtB,SAAU,CACV,WAAY,CACZ,UACF","file":"main.dcb51c82.chunk.css","sourcesContent":[".card {\n  border: 2px solid gray;\n  width: 20%;\n  padding: 10%;\n  margin: 10%;\n}\n"]}

@@ -12,53 +12,48 @@ import {
   Segment,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import logo from ".././logo.png";
-
-const countryOptions = [
-  { key: "ny", value: "ny", flag: "us", text: "New York" },
-  { key: "gb", value: "gb", flag: "gb", text: "London" },
-  { key: "nj", value: "nj", flag: "us", text: "New Jersey" },
-  { key: "fr", value: "fr", flag: "fr", text: "France" },
-  { key: "gr", value: "gr", flag: "gr", text: "Greece" },
-  { key: "is", value: "is", flag: "is", text: "Iceland" },
-  { key: "it", value: "it", flag: "it", text: "Italy" },
-  { key: "ma", value: "ma", flag: "us", text: "Massachusetts" },
-  { key: "ct", value: "ct", flag: "us", text: "Connecticut" },
-  { key: "ca", value: "ca", flag: "us", text: "California" },
-  { key: "co", value: "co", flag: "us", text: "Colorado" },
-  { key: "ni", value: "ni", flag: "ni", text: "Netherland" },
-  { key: "no", value: "no", flag: "no", text: "Norway" },
-  { key: "hk", value: "hk", flag: "hk", text: "Hong Kong" },
-  { key: "sg", value: "sg", flag: "sg", text: "Singapore" },
-
-  { key: "au", value: "au", flag: "au", text: "Australia" },
-  { key: "at", value: "at", flag: "at", text: "Austria" },
-  { key: "es", value: "es", flag: "es", text: "Spain" },
-  { key: "bs", value: "bs", flag: "bs", text: "Bahamas" },
-
-  { key: "se", value: "se", flag: "se", text: "Sweden" },
-  { key: "be", value: "be", flag: "be", text: "Belgium" },
-  { key: "vi", value: "vi", flag: "vi", text: "Virgin Islands" },
-];
+import logo from ".././imgs/logo.png";
+import earthFrame from ".././imgs/earth.png";
+import ImageUploader from "react-images-upload";
+import { getUserInfo, updateUser } from "../store/user";
+import { connect } from "react-redux";
 
 class Signup2 extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      activeItem: "credential",
+      image: null,
     };
+
+    this.onImageChange = this.onImageChange.bind(this);
   }
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  componentDidMount() {
+    this.props.getUserInfo(this.props.user.id);
+  }
+  onImageChange = async (event) => {
+    if (event.target.files && event.target.files[0]) {
+      let img = event.target.files[0];
+      await this.setState({
+        image: URL.createObjectURL(img),
+      });
+      await this.props.updateUser(1, {
+        imgUrl: this.state.image,
+      });
+    }
+  };
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    await this.props.history.push("/signup-3");
+  };
 
   render() {
     const { activeItem } = this.state;
-
     return (
       <div>
-        <Image src={logo} centered size="small" style={{ top: 25 }} />
+        <Image src={logo} centered size="small" style={{ top: 15 }} />
         <br />
         <br />
-        <Card center style={{ width: "25%", left: "37.5%" }}>
+        <Card centered>
           <Menu pointing>
             <Link to="/signup-1">
               <Menu.Item
@@ -82,19 +77,58 @@ class Signup2 extends React.Component {
               />
             </Link>
           </Menu>
-        </Card>
-        {/* <Card center style={{ left: "39%" }}>
-          <Dropdown
-            placeholder="Select Country"
-            fluid
-            search
-            selection
-            options={countryOptions}
+          <Message
+            attached
+            header="Welcome to PenPals!"
+            content="Please upload a profile picture "
           />
-        </Card> */}
+          <Image src={earthFrame} size="medium" />
+          <img
+            src={this.state.image}
+            style={{
+              width: 268,
+              height: 250,
+              borderRadius: "47%",
+              position: "absolute",
+              top: 182,
+              alignSelf: "center",
+            }}
+          />
+
+          <input
+            type="file"
+            placeholder="Email Address"
+            name="myImage"
+            onChange={this.onImageChange}
+          />
+          <Button
+            content="Submit "
+            primary
+            type="button"
+            onClick={this.handleSubmit}
+          />
+          <Message attached="bottom" warning>
+            <Icon name="help" />
+            Signed up?&nbsp;<Link to="/login">Login here</Link>
+            &nbsp;instead.
+          </Message>
+        </Card>
       </div>
     );
   }
 }
 
-export default Signup2;
+const mapToState = (state) => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUserInfo: (id) => dispatch(getUserInfo(id)),
+    updateUser: (id, updateData) => {
+      return dispatch(updateUser(id, updateData));
+    },
+  };
+};
+
+export default connect(mapToState, mapDispatchToProps)(Signup2);
