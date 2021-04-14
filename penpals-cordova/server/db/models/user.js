@@ -6,53 +6,29 @@ const User = db.define("user", {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    // allowNull: false,
-    // validate: {
-    //   notEmpty: true,
-    //   isEmail: true,
-    // },
   },
   name: {
     type: Sequelize.STRING,
-    // allowNull: false,
-    // validate: {
-    //   notEmpty: true,
-    // },
   },
 
-  city: {
-    type: Sequelize.STRING,
-    // allowNull: false,
-    // validate: {
-    //   notEmpty: true,
-    // },
-  },
   fromCity: {
     type: Sequelize.STRING,
-    // allowNull: false,
-    // validate: {
-    //   notEmpty: true,
-    // },
   },
   toCity: {
     type: Sequelize.STRING,
-    // allowNull: false,
-    // validate: {
-    //   notEmpty: true,
-    // },
   },
   token: {
     type: Sequelize.STRING,
   },
   imgUrl: {
     type: Sequelize.STRING,
-    // defaultValue:
-    //   "https://icons-for-free.com/iconfiles/png/512/avatar+human+male+man+men+people+person+profile+user+users-1320196163635839021.png",
+  },
+  requests: {
+    type: Sequelize.ARRAY(Sequelize.INTEGER),
   },
   description: {
     type: Sequelize.TEXT,
   },
-
   password: {
     type: Sequelize.STRING,
 

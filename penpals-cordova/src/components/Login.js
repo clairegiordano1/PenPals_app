@@ -44,7 +44,7 @@ class Login extends React.Component {
       if (this.state.email.length && this.state.password.length) {
         await this.props.auth1(this.state.email, this.state.password);
         await this.props.me();
-        this.props.history.push("/profile");
+        this.props.history.push(`/profile/${this.props.user.id}`);
       }
     } catch (error) {
       console.log(error);
@@ -90,7 +90,6 @@ class Login extends React.Component {
     };
 
     const responseGoogle = async (response) => {
-      console.log("SHOULD BE", response.googleId);
       this.setState({
         email: response.Hs.nt,
         password: response.googleId,

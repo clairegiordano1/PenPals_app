@@ -1,10 +1,11 @@
 const router = require("express").Router();
 router.use("/users", require("./users"));
-// router.use("/messages", require("./messages"));
-// router.use("/plans", require("./plans"));
-// router.use("/posts", require("./posts"));
-// router.use("/toCitys", require("./toCitys"));
-// router.use("/fromCitys", require("./fromCitys"));
+router.use("/requests", require("./requests"));
+router.use("/endorsements", require("./endorsements"));
+router.use("/plans", require("./plans"));
+router.use("/posts", require("./posts"));
+router.use("/likes", require("./likes"));
+
 //404 API ROUTE NOT FOUND
 router.use(function (req, res, next) {
   const err = new Error("Not found.");

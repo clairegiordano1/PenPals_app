@@ -18,7 +18,7 @@ const isLoggedIn = (req, res, next) => {
 router.get("/", isLoggedIn, async (req, res, next) => {
   try {
     const users = await User.findAll({
-      attributes: ["id", "email", "token", "name"],
+      include: { all: true },
     });
     res.json(users);
   } catch (err) {

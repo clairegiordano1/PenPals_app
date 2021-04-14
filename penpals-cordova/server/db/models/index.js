@@ -1,13 +1,29 @@
 const User = require("./user");
-// const Message = require("./message");
-// const Plan = require("./plan");
-// const Post = require("./post");
+const Request = require("./request");
+const Endorsement = require("./endorsement");
+const Plan = require("./plan");
+const Post = require("./post");
+const Like = require("./like");
+
+User.hasMany(Request, { as: "received_request" });
+User.hasMany(Request, { as: "sent_request" });
+User.hasMany(Endorsement, { as: "endorsed" });
+
+User.belongsToMany(Post, { through: Plan });
+Post.belongsToMany(User, { through: Plan });
+
+User.hasMany(Post, { as: "host" });
+Post.belongsTo(User, { as: "host" });
+
+User.belongsToMany(Post, { through: Like });
+Post.belongsToMany(User, { through: Like });
+// User.hasMany(Like, { as: "liker" });
+Like.belongsTo(Post, { as: "liker" });
+
 // const ToCity = require("./toCity");
 // const FromCity = require("./fromCity");
 
 // Associations
-// User.belongsToMany(Post, { through: Plan });
-// Post.belongsToMany(User, { through: Plan });
 // Message.belongsTo(Event);
 // Message.belongsTo(User, { as: "sender" });
 
@@ -33,9 +49,10 @@ const User = require("./user");
 
 module.exports = {
   User,
+  Request,
+  Endorsement,
   // Message,
-  // Plan,
-  // Post,
-  // ToCity,
-  // FromCity,
+  Plan,
+  Post,
+  Like,
 };

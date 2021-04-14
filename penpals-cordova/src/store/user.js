@@ -8,6 +8,8 @@ const GET_USER = "GET_USER";
 const REMOVE_USER = "REMOVE_USER";
 const UPDATE_CURRENT_USER = "UPDATE_CURRENT_USER";
 const ADD_USER = "ADD_USER";
+const GET_ALL_REQUESTS = " GET_ALL_REQUESTS ";
+const POST_REQUEST = "POST_REQUEST";
 
 /**
  * INITIAL STATE
@@ -20,7 +22,7 @@ const defaultUser = {};
 const getUser = (user) => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
 const updateCurrentUser = (user) => ({ type: UPDATE_CURRENT_USER, user });
-
+// const postRequest = (user) => ({ type: GET_ALL_REQUESTS, users });
 /**
  * THUNK CREATORS
  */
@@ -58,11 +60,44 @@ export const auth1 = (email, password) => async (dispatch) => {
   }
 };
 
+export const getUserInfo = (id) => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`http://localhost:8081/api/users/${id}`);
+    return dispatch(getUser(data));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const updateUser = (id, body) => async (dispatch) => {
+  try {
+    const { data } = await axios.put(
+      `http://localhost:8081/api/users/${id}`,
+      body
+    );
+    return dispatch(updateCurrentUser(data));
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const getUsersRequests = (id, body) => async (dispatch) => {
+  try {
+    const { data } = await axios.get(
+      `http://localhost:8081/api/users/requests/${id}`,
+      body
+    );
+    dispatch(getUser(data));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const auth2 = (
   name,
   email,
   password,
   token,
+  requests,
   description,
   imgUrl,
   city,
@@ -82,6 +117,7 @@ export const auth2 = (
       city,
       state,
       zipCode,
+      requests,
       pushToken,
     });
     return dispatch(getUser(res.data));
@@ -89,12 +125,15 @@ export const auth2 = (
     console.error(error);
   }
 };
-export const getUserInfo = (id) => async (dispatch) => {
+export const postRequest = (id, requests) => async (dispatch) => {
+  let res;
   try {
-    const { data } = await axios.get(`http://localhost:8081/api/users/${id}`);
-    return dispatch(getUser(data));
-  } catch (err) {
-    console.error(err);
+    res = await axios.put(`http://localhost:8081/api/users/${id}`, {
+      requests,
+    });
+    return dispatch(getUser(res.data));
+  } catch (error) {
+    console.error(error);
   }
 };
 
@@ -104,18 +143,6 @@ export const logout = () => async (dispatch) => {
     return dispatch(removeUser());
   } catch (err) {
     console.error(err);
-  }
-};
-
-export const updateUser = (id, body) => async (dispatch) => {
-  try {
-    const { data } = await axios.put(
-      `http://localhost:8081/api/users/${id}`,
-      body
-    );
-    return dispatch(updateCurrentUser(data));
-  } catch (error) {
-    console.error(error);
   }
 };
 
@@ -131,6 +158,8 @@ export default function userReducer(state = defaultUser, action) {
     case UPDATE_CURRENT_USER:
       return action.user;
     case ADD_USER:
+      return [...state, action.user];
+    case GET_ALL_REQUESTS:
       return [...state, action.user];
     default:
       return state;

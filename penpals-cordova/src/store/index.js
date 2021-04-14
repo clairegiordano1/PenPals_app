@@ -4,14 +4,22 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import userReducer from "./user";
 import usersReducer from "./users";
-
-// import authors from './authors'
-// import singleStory from './singleStory'
-// import singleAuthor from './singleAuthor'
+import requestsReducer from "./users";
+import endorsementsReducer from "./endorsement";
+import postsReducer from "./posts";
+import singlePostReducer from "./singlePost";
+import planReducer from "./plan";
+import likesReducer from "./likes";
 
 const reducer = combineReducers({
   user: userReducer,
   users: usersReducer,
+  requests: requestsReducer,
+  endorsements: endorsementsReducer,
+  posts: postsReducer,
+  singlePost: singlePostReducer,
+  plans: planReducer,
+  likes: likesReducer,
 });
 
 const middleware = composeWithDevTools(
