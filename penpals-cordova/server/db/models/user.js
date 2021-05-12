@@ -29,6 +29,7 @@ const User = db.define("user", {
   description: {
     type: Sequelize.TEXT,
   },
+
   password: {
     type: Sequelize.STRING,
 
@@ -42,12 +43,12 @@ const User = db.define("user", {
       return () => this.getDataValue("salt");
     },
   },
-  googleId: {
-    type: Sequelize.STRING,
-  },
-  pushToken: {
-    type: Sequelize.STRING,
-  },
+  // googleId: {
+  //   type: Sequelize.STRING,
+  // },
+  // pushToken: {
+  //   type: Sequelize.STRING,
+  // },
 });
 
 /**

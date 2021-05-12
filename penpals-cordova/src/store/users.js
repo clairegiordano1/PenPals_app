@@ -1,5 +1,4 @@
 import axios from "axios";
-const serverLink = "http://localhost:8081";
 
 // ACTION TYPES
 const GET_ALL_USERS = "GET_ALL_USERS";

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Plan } = require("../db/models");
+const { Plan, User } = require("../db/models");
 
 //GET --> /API/PLANS
 router.get("/", async (req, res, next) => {
@@ -12,11 +12,11 @@ router.get("/", async (req, res, next) => {
 });
 
 //GET --> /API/PLANS/:USERID
-router.get("/:userId", async (req, res, next) => {
+router.get("/:postId", async (req, res, next) => {
   try {
     const plans = await Plan.findAll({
       where: {
-        userId: req.params.userId,
+        postId: req.params.postId,
       },
     });
     res.json(plans);

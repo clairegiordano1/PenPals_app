@@ -5,6 +5,8 @@ router.use("/endorsements", require("./endorsements"));
 router.use("/plans", require("./plans"));
 router.use("/posts", require("./posts"));
 router.use("/likes", require("./likes"));
+router.use("/messages", require("./messages"));
+router.use("/comments", require("./comments"));
 
 //404 API ROUTE NOT FOUND
 router.use(function (req, res, next) {

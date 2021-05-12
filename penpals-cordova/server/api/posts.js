@@ -1,26 +1,11 @@
 const router = require("express").Router();
-const { User, Post, Message, Plan } = require("../db/models");
+const { User, Post, Message, Plan, Comment } = require("../db/models");
 
 //GET --> /API/POSTS
 router.get("/", async (req, res, next) => {
   try {
     const posts = await Post.findAll();
     res.json(posts);
-  } catch (error) {
-    next(error);
-  }
-});
-
-// GET --> API/POSTS/:POSTID
-router.get("/:postId", async (req, res, next) => {
-  try {
-    const post = await Post.findOne({
-      where: {
-        id: req.params.postId,
-      },
-      include: { all: true },
-    });
-    res.json(post);
   } catch (error) {
     next(error);
   }
@@ -41,6 +26,50 @@ router.get("/:postId/messages", async (req, res, next) => {
   }
 });
 
+// GET --> API/POSTS/:POSTID/COMMENTS
+router.get("/:postId/comments", async (req, res, next) => {
+  try {
+    const postComments = await Comment.findAll({
+      where: {
+        postId: req.params.postId,
+      },
+      include: { model: User, as: "commenter" },
+    });
+    res.json(postComments);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//POST --> /API/POSTS/MESSAGES
+router.post("/:id/messages", async (req, res, next) => {
+  try {
+    const postMessages = await Message.create(req.body, {
+      where: {
+        postId: req.params.id,
+      },
+      include: { model: User, as: "sender" },
+    });
+    res.json(postMessages);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//POST --> /API/POSTS/MESSAGES
+router.post("/:id/comments", async (req, res, next) => {
+  try {
+    const comment = await Comment.create(req.body, {
+      where: {
+        postId: req.params.id,
+      },
+      include: { model: User, as: "commenter" },
+    });
+    res.json(comment);
+  } catch (error) {
+    next(error);
+  }
+});
 //POST --> /API/POSTS
 router.post("/", async (req, res, next) => {
   try {

@@ -1,23 +1,11 @@
 import React from "react";
-import {
-  Checkbox,
-  Grid,
-  Header,
-  Icon,
-  Image,
-  Menu,
-  Segment,
-  Sidebar,
-  Card,
-  Search,
-} from "semantic-ui-react";
-import { Link } from "react-router-dom";
-import logo from ".././imgs/logo.png";
-import hamburger from ".././imgs/hamburger.png";
-import { getUserInfo, updateUser } from "../store/user";
-import { postNewRequest, getAllRequests } from "../store/request";
-import { getUsersInfo } from "../store/users";
+import { Grid, Icon, Image, Segment, Sidebar, Card } from "semantic-ui-react";
+import logo from "../../imgs/logo.png";
+import { getUserInfo, updateUser } from "../../store/user";
+import { postNewRequest, getAllRequests } from "../../store/request";
+import { getUsersInfo } from "../../store/users";
 import { connect } from "react-redux";
+import SideBar from "../Search/Sidebar";
 class Profile extends React.Component {
   constructor() {
     super();
@@ -30,9 +18,9 @@ class Profile extends React.Component {
       view_friends_count: 0,
     };
   }
-  componentDidMount() {
-    this.props.getUserInfo(this.props.match.params.id);
-  }
+  componentDidMount = async () => {
+    await this.props.getUserInfo(this.props.match.params.id);
+  };
   handleViewFriends = async () => {
     const id = this.props.match.params.id;
     let view_friends = [];
@@ -72,7 +60,6 @@ class Profile extends React.Component {
 
     let picSet = new Set(pic_info);
     let imgSet = Array.from(picSet);
-    console.log(pic_info, "pls work somehow");
     this.setState({
       view_friends: arr,
       view_friends_img: imgSet,
@@ -91,72 +78,15 @@ class Profile extends React.Component {
         <Image src={logo} centered size="small" style={{ top: 15 }} />
         <br />
         <br />
-
-        <Card centered style={{ height: 390 }}>
+        <Card centered>
           <Grid columns={1}>
             <Grid.Column>
               <Sidebar.Pushable as={Segment}>
-                <Sidebar
-                  as={Menu}
-                  animation="overlay"
-                  direction="left"
-                  icon="labeled"
-                  onHide={() => this.setState({ visible: false })}
-                  vertical
-                  visible={this.state.visible}
-                  width="thin"
-                  style={{ position: "fixed" }}
-                >
-                  <Link to={`/feed/${this.props.user.id}`}>
-                    {" "}
-                    <Menu.Item as="a">
-                      <Icon name="home" style={{ color: "#3a8fb0" }} />
-                      Feed
-                    </Menu.Item>
-                  </Link>
-                  <Link to={`/search/${this.props.user.id}`}>
-                    <Menu.Item as="a">
-                      <Icon
-                        name="search"
-                        style={{
-                          color: "#54d673",
-                        }}
-                      />
-                      Search
-                    </Menu.Item>
-                  </Link>
-                  <Link to="/message">
-                    <Menu.Item as="a">
-                      <Icon name="wechat" style={{ color: "#0b5978" }} />
-                      Message
-                    </Menu.Item>
-                  </Link>
-                  <Link to={`/posts/${this.props.user.id}`}>
-                    {" "}
-                    <Menu.Item as="a">
-                      <Icon name="edit" style={{ color: "#54d673" }} />
-                      Posts
-                    </Menu.Item>
-                  </Link>
-                  <Link to={`/requests/${this.props.user.id}`}>
-                    {" "}
-                    <Menu.Item as="a">
-                      <Icon name="users" style={{ color: "#0b5978" }} />
-                      Requests
-                    </Menu.Item>
-                  </Link>
-                </Sidebar>
-                <Image
-                  src={hamburger}
-                  left
-                  style={{ width: "11%" }}
-                  onClick={() =>
-                    this.setState({ visible: !this.state.visible })
-                  }
-                />
+                <SideBar sidebarId={this.props.match.params.id} />
                 <Image
                   style={{
-                    width: 72,
+                    width: 66,
+                    height: 62,
                     borderRadius: "60%",
                     border: "solid 2px white",
                   }}
@@ -180,8 +110,8 @@ class Profile extends React.Component {
                       </span>
                     </Card.Meta>
                     <Card.Description>
-                      Claire is a student from New York, this is hardcoded for
-                      now.
+                      temporary description is a student from New York, this is
+                      hardcoded for now.
                     </Card.Description>
                   </Card.Content>
                   <Card.Content>
@@ -233,6 +163,7 @@ class Profile extends React.Component {
                     )}
                   </Card.Content>
                 </Card>
+
                 <br />
                 <br />
               </Sidebar.Pushable>

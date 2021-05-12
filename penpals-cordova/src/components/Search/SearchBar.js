@@ -1,5 +1,4 @@
 import React from "react";
-import { Dropdown } from "semantic-ui-react";
 import {
   Button,
   Form,
@@ -14,11 +13,11 @@ import {
   Search,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { getUsersInfo } from "../store/users";
-import { getUserInfo, me } from "../store/user";
-import hamburger from ".././imgs/hamburger.png";
+import { getUsersInfo } from "../../store/users";
+import { getUserInfo, me } from "../../store/user";
 import { connect } from "react-redux";
-import logo from ".././imgs/logo.png";
+import logo from "../../imgs/logo.png";
+import SideBar from "./Sidebar";
 
 const BarStyling = {
   width: "20rem",
@@ -87,64 +86,7 @@ class SearchBar extends React.Component {
           <Grid columns={1}>
             <Grid.Column>
               <Sidebar.Pushable as={Segment}>
-                <Sidebar
-                  as={Menu}
-                  animation="overlay"
-                  direction="left"
-                  icon="labeled"
-                  onHide={() => this.setState({ visible: false })}
-                  vertical
-                  visible={this.state.visible}
-                  width="thin"
-                  style={{ position: "fixed" }}
-                >
-                  <Link to={`/feed/${this.props.user.id}`}>
-                    {" "}
-                    <Menu.Item as="a">
-                      <Icon name="home" style={{ color: "#3a8fb0" }} />
-                      Feed
-                    </Menu.Item>
-                  </Link>
-                  <Link to={`/search/${this.props.user.id}`}>
-                    <Menu.Item as="a">
-                      <Icon
-                        name="search"
-                        style={{
-                          color: "#54d673",
-                        }}
-                      />
-                      Search
-                    </Menu.Item>
-                  </Link>
-                  <Link to="/message">
-                    <Menu.Item as="a">
-                      <Icon name="wechat" style={{ color: "#0b5978" }} />
-                      Message
-                    </Menu.Item>
-                  </Link>
-                  <Link to={`/posts/${this.props.user.id}`}>
-                    {" "}
-                    <Menu.Item as="a">
-                      <Icon name="edit" style={{ color: "#54d673" }} />
-                      Posts
-                    </Menu.Item>
-                  </Link>
-                  <Link to={`/requests/${this.props.user.id}`}>
-                    {" "}
-                    <Menu.Item as="a">
-                      <Icon name="users" style={{ color: "#0b5978" }} />
-                      Requests
-                    </Menu.Item>
-                  </Link>
-                </Sidebar>
-                <Image
-                  src={hamburger}
-                  left
-                  style={{ width: "11%" }}
-                  onClick={() =>
-                    this.setState({ visible: !this.state.visible })
-                  }
-                />
+                <SideBar />
                 <form onSubmit={this.handleSubmit}>
                   <input
                     type="text"

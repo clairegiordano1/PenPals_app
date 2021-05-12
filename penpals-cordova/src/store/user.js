@@ -1,5 +1,4 @@
 import axios from "axios";
-// import { serverLink } from "./serverLink";
 
 /**
  * ACTION TYPES

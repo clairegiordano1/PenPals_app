@@ -9,22 +9,19 @@ import {
   Card,
   Form,
   Input,
-  TextArea,
   Button,
   Select,
 } from "semantic-ui-react";
 import emailjs from "emailjs-com";
-import { Link } from "react-router-dom";
-import logo from ".././imgs/logo.png";
-import hamburger from ".././imgs/hamburger.png";
-import { getUserInfo, updateUser } from "../store/user";
-import { postNewPost } from "../store/posts";
+import logo from "../../imgs/logo.png";
+import { getUserInfo, updateUser } from "../../store/user";
+import { postNewPost } from "../../store/posts";
 import { connect } from "react-redux";
+import SideBar from "../Search/Sidebar";
 class Post extends React.Component {
   constructor() {
     super();
     this.state = {
-      visible: false,
       image: null,
       event_title: "",
       event_date: "",
@@ -61,12 +58,12 @@ class Post extends React.Component {
 
     e.preventDefault();
     // this.props.submitInfo();
-    await emailjs.sendForm(
-      "service_w6z0o6d",
-      "template_2",
-      e.target,
-      "user_5SSkJYz69Wad3kVUHh7pP"
-    ); //emailjs call with API ref num, email template ID, and mu account user ID
+    // await emailjs.sendForm(
+    //   "service_w6z0o6d",
+    //   "template_2",
+    //   e.target,
+    //   "user_5SSkJYz69Wad3kVUHh7pP"
+    // ); //emailjs call with API ref num, email template ID, and mu account user ID
     // .then(
     //   (result) => {
     //     window.location.reload(); //This is to reload page (since e.preventDefault() cancels that behavior)
@@ -119,64 +116,8 @@ class Post extends React.Component {
           <Grid columns={1}>
             <Grid.Column>
               <Sidebar.Pushable as={Segment}>
-                <Sidebar
-                  as={Menu}
-                  animation="overlay"
-                  direction="left"
-                  icon="labeled"
-                  onHide={() => this.setState({ visible: false })}
-                  vertical
-                  visible={this.state.visible}
-                  width="thin"
-                  style={{ position: "fixed" }}
-                >
-                  <Link to={`/feed/${this.props.user.id}`}>
-                    {" "}
-                    <Menu.Item as="a">
-                      <Icon name="home" style={{ color: "#3a8fb0" }} />
-                      Feed
-                    </Menu.Item>
-                  </Link>
-                  <Link to={`/search/${this.props.user.id}`}>
-                    <Menu.Item as="a">
-                      <Icon
-                        name="search"
-                        style={{
-                          color: "#54d673",
-                        }}
-                      />
-                      Search
-                    </Menu.Item>
-                  </Link>
-                  <Link to="/message">
-                    <Menu.Item as="a">
-                      <Icon name="wechat" style={{ color: "#0b5978" }} />
-                      Message
-                    </Menu.Item>
-                  </Link>
-                  <Link to={`/requests/${this.props.user.id}`}>
-                    {" "}
-                    <Menu.Item as="a">
-                      <Icon name="users" style={{ color: "#54d673" }} />
-                      Requests
-                    </Menu.Item>
-                  </Link>
-                  <Link to={`/posts/${this.props.user.id}`}>
-                    {" "}
-                    <Menu.Item as="a">
-                      <Icon name="edit" style={{ color: "#0b5978" }} />
-                      Posts
-                    </Menu.Item>
-                  </Link>
-                </Sidebar>
-                <Image
-                  src={hamburger}
-                  left
-                  style={{ width: "11%" }}
-                  onClick={() =>
-                    this.setState({ visible: !this.state.visible })
-                  }
-                />
+                <SideBar sidebarId={this.props.match.params.id} />
+
                 <Image
                   style={{
                     width: 50,

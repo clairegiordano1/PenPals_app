@@ -1,25 +1,23 @@
 import React from "react";
 import {
   Button,
-  Header,
   Icon,
-  Message,
   Card,
   Image,
   Segment,
   Sidebar,
   Grid,
-  Menu,
 } from "semantic-ui-react";
-import { Link } from "react-router-dom";
-import { getUsersInfo } from "../store/users";
-import { getUserInfo, me } from "../store/user";
-import { postNewRequest, getAllRequests } from "../store/request";
-import { postNewEndorsement, getAllEndorsements } from "../store/endorsement";
-import Endorsement from "./Endorsements";
-import hamburger from ".././imgs/hamburger.png";
+import { getUsersInfo } from "../../store/users";
+import { getUserInfo, me } from "../../store/user";
+import { postNewRequest, getAllRequests } from "../../store/request";
+import {
+  postNewEndorsement,
+  getAllEndorsements,
+} from "../../store/endorsement";
 import { connect } from "react-redux";
-import logo from ".././imgs/logo.png";
+import logo from "../../imgs/logo.png";
+import SideBar from "../Search/Sidebar";
 
 class SearchProfile extends React.Component {
   constructor(props) {
@@ -231,7 +229,6 @@ class SearchProfile extends React.Component {
           button3: "star outline",
           button4: "star outline",
           button5: "star outline",
-
           button3: "star outline",
           e_count: 2,
         });
@@ -403,70 +400,8 @@ class SearchProfile extends React.Component {
           <Grid columns={1}>
             <Grid.Column>
               <Sidebar.Pushable as={Segment}>
-                <Sidebar
-                  as={Menu}
-                  animation="overlay"
-                  direction="left"
-                  icon="labeled"
-                  onHide={() => this.setState({ visible: false })}
-                  vertical
-                  visible={this.state.visible}
-                  width="thin"
-                  style={{ position: "fixed" }}
-                >
-                  <Link to={`/feed/${this.props.user.id}`}>
-                    {" "}
-                    <Menu.Item as="a">
-                      <Icon name="home" style={{ color: "#3a8fb0" }} />
-                      Feed
-                    </Menu.Item>
-                  </Link>
-                  <Button
-                    onClick={this.handleBackSearch}
-                    style={{
-                      backgroundColor: "white",
-                      color: "green",
-                    }}
-                  >
-                    <Menu.Item as="a">
-                      <Icon
-                        name="search"
-                        style={{
-                          color: "#54d673",
-                        }}
-                      />
-                      Search
-                    </Menu.Item>
-                  </Button>
-                  <Link to="/message">
-                    <Menu.Item as="a">
-                      <Icon name="wechat" style={{ color: "#0b5978" }} />
-                      Message
-                    </Menu.Item>
-                  </Link>
-                  <Link to={`/posts/${this.props.user.id}`}>
-                    {" "}
-                    <Menu.Item as="a">
-                      <Icon name="edit" style={{ color: "#54d673" }} />
-                      Posts
-                    </Menu.Item>
-                  </Link>
-                  <Link to={`/requests/${this.props.user.id}`}>
-                    {" "}
-                    <Menu.Item as="a">
-                      <Icon name="users" style={{ color: "#0b5978" }} />
-                      Requests
-                    </Menu.Item>
-                  </Link>
-                </Sidebar>
-                <Image
-                  src={hamburger}
-                  left
-                  style={{ width: "11%" }}
-                  onClick={() =>
-                    this.setState({ visible: !this.state.visible })
-                  }
-                />
+                <SideBar />
+
                 <Card centered style={{ width: 210, height: 200 }}>
                   <br />
                   <Image

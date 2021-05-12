@@ -22,10 +22,10 @@ async function seed() {
     sent_request: 2,
     sent_request: 3,
     imgUrl:
-      "https://scontent.fewr1-6.fna.fbcdn.net/v/t1.0-9/69376345_2429223603787166_432397241274073088_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=R5wxXX4X5S4AX8PhqMS&_nc_ht=scontent.fewr1-6.fna&oh=7ff48ae59d8d0551589b808103a06c9d&oe=6084143C",
+      "https://media-exp1.licdn.com/dms/image/C4D03AQHgqObsqX4UkQ/profile-displayphoto-shrink_400_400/0/1616798125873?e=1625097600&v=beta&t=_gA_VuB2PHIcgH7Gecfp00D5qEl_pYXBo_0domQ4jEg",
     // pushToken: "ExponentPushToken[NA_5A_L3ThvvLenHPwiOKJ]",
-    googleId:
-      "958905447792-btonq7mth3qcu7s7t10klummopl4t2n0.apps.googleusercontent.com",
+    // googleId:
+    //   "958905447792-btonq7mth3qcu7s7t10klummopl4t2n0.apps.googleusercontent.com",
   });
   users.push(claire);
 
@@ -34,9 +34,9 @@ async function seed() {
     email: "Lvachiano1@gmail.com",
     fromCity: "New York",
 
-    toCity: "Paris",
+    toCity: "Rejavik",
     imgUrl:
-      "https://scontent.fewr1-5.fna.fbcdn.net/v/t1.0-9/97959329_3247025408670281_4790347312092151808_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=YVETZf0VQfIAX9TbCba&_nc_ht=scontent.fewr1-5.fna&oh=23cdd0868dddbc645e0059913b0ff847&oe=6085C682",
+      "https://media-exp1.licdn.com/dms/image/C4E03AQEtZ3eSVTuyAQ/profile-displayphoto-shrink_400_400/0/1594821847669?e=1625097600&v=beta&t=oPyTZsOB_f78ddW-QSCsvDgVirAX_LqlO9vz4rVslQI",
     password: "Lucia",
   });
   users.push(lucia);
@@ -85,7 +85,7 @@ async function seed() {
   //POSTS FAKE DATA
 
   const post1 = await Post.create({
-    title: "See the Northerin Lights",
+    title: "  Northerin Lights",
     description: "go see northern lights in Iceland!",
 
     city: "Rejavik",
@@ -98,7 +98,7 @@ async function seed() {
   posts.push(post1);
 
   const post2 = await Post.create({
-    title: "See the Eiffel tower",
+    title: "See  Eiffel tower",
     description: "go see Eiffel tower in Paris!",
 
     city: "Paris",
@@ -122,7 +122,22 @@ async function seed() {
   });
 
   posts.push(post3);
+
+  const post4 = await Post.create({
+    title: "Central Park Day",
+    description: "walk around central park then grab lunch",
+
+    city: "New York",
+    date: "09/12/21",
+    imgUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQNwbdff2tngpWRGZF3MDYrBfb8Q365M-C-A&usqp=CAU",
+    userId: 1,
+    hostId: 2,
+  });
+
+  posts.push(post4);
 }
+
 async function runSeed() {
   try {
     await seed();

@@ -1,16 +1,7 @@
 import React from "react";
-import {
-  Form,
-  Checkbox,
-  Input,
-  Card,
-  Button,
-  Select,
-  Icon,
-  Image,
-} from "semantic-ui-react";
+import { Card, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import logo from ".././imgs/logo.png";
+import logo from "../../imgs/logo.png";
 
 class Home extends React.Component {
   constructor() {
@@ -27,11 +18,16 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
-        <Image src={logo} centered style={{ top: 100, width: 225 }} />
-        <br />
-        <br />
-        <Card centered style={{ top: 120 }}>
+      <>
+        <Card centered style={{ top: 100, marginTop: 10 }}>
+          <Image
+            src={logo}
+            centered
+            size="small"
+            style={{ top: 15, marginBottom: 150 }}
+          />{" "}
+          <br />
+          <br />
           <Link to="/login">
             <Card.Group textAlign="center">
               <Card fluid color="blue" header="Login"></Card>
@@ -43,7 +39,7 @@ class Home extends React.Component {
             </Card.Group>
           </Link>
         </Card>
-      </div>
+      </>
     );
   }
 }

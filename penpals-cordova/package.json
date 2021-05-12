@@ -19,6 +19,7 @@
     "fs": "^0.0.1-security",
     "install": "^0.13.0",
     "ios": "^0.0.1",
+    "mobiscroll": "^3.0.0-beta6",
     "mocha": "^8.3.1",
     "morgan": "^1.10.0",
     "npm": "^7.6.1",
@@ -27,6 +28,7 @@
     "pg": "^8.5.1",
     "postgresql": "^0.0.1",
     "react": "^17.0.1",
+    "react-chat-ui": "^0.4.0",
     "react-dom": "^17.0.1",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.2.2",
@@ -42,6 +44,8 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
     "session": "^0.1.0",
+    "stream-chat": "^3.7.0",
+    "stream-chat-react": "^5.1.8",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

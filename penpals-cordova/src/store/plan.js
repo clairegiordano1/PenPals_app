@@ -26,11 +26,9 @@ export const deletePlan = () => ({
   type: DELETE_PLAN,
 });
 
-export const getAllPlans = (userId) => async (dispatch) => {
+export const getAllPlans = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.get(
-      `http://localhost:8081/api/plans/${userId}`
-    );
+    const { data } = await axios.get(`http://localhost:8081/api/plans/${id}`);
     return dispatch(getPlans(data));
   } catch (error) {}
 };
